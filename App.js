@@ -3,8 +3,11 @@ import CardList from './CardList';
 import SearchBox from './SearchBox';
 import { robots } from './robots';
 import Scroll from './Scroll';
-import { render } from '@testing-library/react';
+// import { render } from '@testing-library/react';
 import './App.css';
+// import axios from 'axios';
+
+
 class App extends Component {
     constructor(){
         super()
@@ -13,16 +16,30 @@ class App extends Component {
             searchfield: ''
         }
     }
-
-    componentDidMount() {
+    // constructor(){
+    //     super(this.props)
+    //         this.state = {
+    //             posts: []
+    //         }
+    // }
+        componentDidMount() {
         fetch('https://jsonplaceholder.typicode.com/users')
         .then(response => response.json()) 
         .then(users => this.setState({robots: robots }));
     }
 
+    // componentDidMount(){
+    //     axios.get('https://jsonplaceholder.typicode.com/posts')
+    //     .then(response => {
+    //         this.setState({
+    //             posts: response.data
+    //         })
+    //         console.log(response.data)
+    //     })
+    // }
+
     onSearchChange = (event) => {
         this.setState({ searchfield: event.target.value })
-        // console.log(event.target.value);
         
     }
     render() {
@@ -37,13 +54,14 @@ class App extends Component {
         return (
             <div className='tc'>
                 <h1 className='f1'>Robofriends</h1>
+                
                 <SearchBox searchChange = {this.onSearchChange} />
-                <scroll>
+                <Scroll>
                 <CardList robots = {filteredRobots} />
-                </scroll>
-            </div>
+                </Scroll>
+                
+            </div> 
         );
-
     }
 }
 
